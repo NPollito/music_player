@@ -1,41 +1,112 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reproductor</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Top 10 songs</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+
+    .container {
+      min-width: 300px;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    img {
+      margin-top: 10px;
+      width: 170px;
+    }
+
+    button {
+      position: absolute;
+      margin-top: 30px;
+      font-size: 1.2rem;
+      padding: 10px;
+      background-color: crimson;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+
+  </style>
 </head>
 <body>
-  <div class="container">
-    <main>
-      <div class="music-container">
+  <main class="container">
+    <section>
+      <h1 class="title">Mi Top 10 de Músicas</h1>
+      <img src="./src/assets/images/laughing-giggle.gif" alt="digintando">
+      <button id="btn">Ingresar</button>
+    </section>
+  </main>
 
-        <div class="music-container_cover" id="cover">
-          <img src="./portada.jpg" alt="portada">
-        </div>
+  <script>
+      const btn = document.getElementById('btn')
 
-        <div class="music-player">
-          <h2 class="music-player_title" id="title">Nombre desconocido</h2>
-          <p class="music-player_artist" id="artist">Artista desconocido</p>
-          <audio id="audio-player" value="0" min="0" step="0.1"></audio>
-          <div class="progress-container">
-            <input type="range" id="progress"> 
-            <div class="progress-container_info">
-              <span id="time">0:00</span>
-              <span id="duration">0:00</span>
-            </div>
-          </div>
-          <div class="controller">
-            <!-- <button class="controller_prev" id="prev">⏮</button> -->
-            <button class="controller_play" id="play">▶</button>
-            <!-- <button class="controller_next" id="next">⏭</button> -->
-          </div> 
-        </div>
+      const messages = [
+        "¡Casi!", 
+        "¡Muy cerca!", 
+        "¡No, no, no!", 
+        "¡Atrápame!", 
+        "¡Otra vez!", 
+        "¡tú puedes!",
+        "¡Casi la tienes!",
+        "¡Sigue intentándolo!",
+        "¡Eso estuvo cerca!",
+        "¡No te rindas!",
+        "¡Vamos, tú puedes!",
+        "¡Inténtalo de nuevo!",
+        "¡Casi lo logras!",
+      ]
 
-      </div>
-    </main>
-  </div>
-  <script src="index.js"></script>
+      const windowWidth = window.innerWidth;
+      const windowSill = window.innerHeight;
+      const buttonWidth = btn.offsetWidth;
+      const buttonSill = btn.offsetHeight;
+
+      function moveButton(e) {
+
+        if(e) e.preventDefault()
+
+        const maxX = windowWidth - buttonWidth - 20; // 20px de margen
+        const maxY = windowSill - buttonSill - 20;
+
+
+        // Generar coordenadas aleatorias
+        const randomX = Math.floor(Math.random() * maxX);
+        const randomY = Math.floor(Math.random() * maxY);
+
+        // Aplicar la nueva posición
+        btn.style.left = randomX + 'px';
+        btn.style.top = randomY + 'px';
+
+        
+
+        btn.textContent = messages[Math.floor(Math.random() * messages.length)]
+      }
+
+      btn.addEventListener('mouseover', moveButton);
+      btn.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        moveButton();
+      });
+      
+    </script>
 </body>
 </html>
