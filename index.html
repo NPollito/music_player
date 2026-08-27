@@ -5,11 +5,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Top 10 songs</title>
   <style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,900;1,900&display=swap');
     * {
       box-sizing: border-box;
       padding: 0;
       margin: 0;
     }
+
+    #particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .particles {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.85);
+      box-shadow: 0 0 12px white;
+      animation: brillar 3s ease-in-out infinite;
+    }
+
+    body {
+     min-height: 100vh;
+     position: relative;
+     background-color: #000;
+     overflow: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(
+        rgba(0, 0, 0, 0.8), 
+        rgba(30, 0, 0, 0.8)), 
+          url('./src/assets/images/wallpaper.webp');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      filter: grayscale(90%);
+      z-index: -1;
+    } 
 
     .container {
       min-width: 300px;
@@ -26,12 +71,55 @@
       flex-direction: column;
     }
 
+    h1 {
+      font-family: "Hanken Grotesk", sans-serif;
+      font-size: 4rem;
+      font-weight: 900;
+      color: #ff003c;
+      text-shadow: 4px 4px 1px #91001e;
+      letter-spacing: -4px
+    }
+
+    p{
+      margin-top: 8px;
+      background-color: rgba(0, 0, 0, .3);
+      color: #d0a9a7;
+      padding: 15px 20px;
+      border-color: red;
+      border-left: 2px solid #00dbe9;
+      border-right: 2px solid #00dbe9;
+    }
+
     img {
       margin-top: 10px;
       width: 170px;
     }
 
-    button {
+    .btn {
+      margin-top: 50px;
+      padding: 7px 25px;
+      background-color: #ff003c;
+      color: #0e0e0f;
+      font-size: 1.3rem;
+      font-family: "Hanken Grotesk", sans-serif;
+      border: none;
+      box-shadow: 0px -1px 6px 1px #48121f;
+      cursor: pointer;
+      outline: none;
+      transform: skewX(-20deg);
+      transition: background-color .4s, transform .4s, color .4s ease-in;
+      
+    }
+    .btn span {
+      display: inline-block;
+      transform: skewX(20deg)
+    }
+    .btn:hover {
+      color: #ff003c;
+      background-color: #0e0e0f;
+      transform: skewX(-20deg) scale(1.05)
+    }
+    /* button {
       position: absolute;
       margin-top: 30px;
       font-size: 1.2rem;
@@ -43,69 +131,101 @@
       overflow: hidden;
       cursor: pointer;
       transition: all .2s ease;
+    } */
+
+    @keyframes brillar { 
+      0%,
+      100% { opacity: .2; transform: scale(.7); } 
+      50% { opacity: 1; transform: scale(1.3); } 
     }
 
   </style>
 </head>
 <body>
+  <div id="particles"></div>
   <main class="container">
     <section>
-      <h1 class="title">Mi Top 10 de Músicas</h1>
-      <img src="./src/assets/images/laughing-giggle.gif" alt="digintando">
-      <button id="btn">Ingresar</button>
+      <h1 class="title">TOP-10</h1>
+      <p>Estas son mis 10 Músicas favoritas</p>
+      <button class="btn" id="btn"><span>ENTRAR</span></button>
+      <!-- <button id="btn">Ingresar</button> -->
     </section>
   </main>
 
   <script>
       const btn = document.getElementById('btn')
+      const particlesContainer = document.getElementById('particles')
 
-      const messages = [
-        "¡Casi!", 
-        "¡Muy cerca!", 
-        "¡No, no, no!", 
-        "¡Atrápame!", 
-        "¡Otra vez!", 
-        "¡tú puedes!",
-        "¡Casi la tienes!",
-        "¡Sigue intentándolo!",
-        "¡Eso estuvo cerca!",
-        "¡No te rindas!",
-        "¡Vamos, tú puedes!",
-        "¡Inténtalo de nuevo!",
-        "¡Casi lo logras!",
-      ]
+      const particleCount = 15;
+      const getRandomNumber = (min, max) => min + Math.random() * (max - min);
 
-      const windowWidth = window.innerWidth;
-      const windowSill = window.innerHeight;
-      const buttonWidth = btn.offsetWidth;
-      const buttonSill = btn.offsetHeight;
+      function createParticles(count) {
+        if (!particlesContainer) return;
 
-      function moveButton(e) {
+        for (let i = 0; i < count; i++) {
+          const particle = document.createElement('span');
+          particle.className = 'particles';
 
-        if(e) e.preventDefault()
+          particle.style.left = `${getRandomNumber(0, 100)}%`;
+          particle.style.top = `${getRandomNumber(0, 100)}%`;
+          particle.style.animationDelay = `${getRandomNumber(0, 3)}s`;
+          particle.style.animationDuration = `${getRandomNumber(2, 5)}s`;
 
-        const maxX = windowWidth - buttonWidth - 20; // 20px de margen
-        const maxY = windowSill - buttonSill - 20;
-
-
-        // Generar coordenadas aleatorias
-        const randomX = Math.floor(Math.random() * maxX);
-        const randomY = Math.floor(Math.random() * maxY);
-
-        // Aplicar la nueva posición
-        btn.style.left = randomX + 'px';
-        btn.style.top = randomY + 'px';
-
-        
-
-        btn.textContent = messages[Math.floor(Math.random() * messages.length)]
+          particlesContainer.appendChild(particle);
+        }
       }
 
-      btn.addEventListener('mouseover', moveButton);
-      btn.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        moveButton();
-      });
+
+      createParticles(particleCount)
+      btn.addEventListener('click', () => alert("Vuelve pronto"))
+
+      // Boton escurridizo 
+  
+      // const messages = [
+      //   "¡Casi!", 
+      //   "¡Muy cerca!", 
+      //   "¡No, no, no!", 
+      //   "¡Atrápame!", 
+      //   "¡Otra vez!", 
+      //   "¡tú puedes!",
+      //   "¡Casi la tienes!",
+      //   "¡Sigue intentándolo!",
+      //   "¡Eso estuvo cerca!",
+      //   "¡No te rindas!",
+      //   "¡Vamos, tú puedes!",
+      //   "¡Inténtalo de nuevo!",
+      //   "¡Casi lo logras!",
+      // ]
+
+      // const windowWidth = window.innerWidth;
+      // const windowSill = window.innerHeight;
+      // const buttonWidth = btn.offsetWidth;
+      // const buttonSill = btn.offsetHeight;
+
+      // function moveButton(e) {
+
+      //   if(e) e.preventDefault()
+
+      //   const maxX = windowWidth - buttonWidth - 20; // 20px de margen
+      //   const maxY = windowSill - buttonSill - 20;
+
+
+      //   // Generar coordenadas aleatorias
+      //   const randomX = Math.floor(Math.random() * maxX);
+      //   const randomY = Math.floor(Math.random() * maxY);
+
+      //   // Aplicar la nueva posición
+      //   btn.style.left = randomX + 'px';
+      //   btn.style.top = randomY + 'px';
+
+      //   btn.textContent = messages[Math.floor(Math.random() * messages.length)]
+      // }
+
+      // btn.addEventListener('mouseover', moveButton);
+      // btn.addEventListener('touchstart', (e) => {
+      //   e.preventDefault();
+      //   moveButton();
+      // });
       
     </script>
 </body>
