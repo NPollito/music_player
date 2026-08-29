@@ -84,14 +84,33 @@ loadSong(playlist[indexSong])
 
 function tooglePlay() {
 
-  if(audioPlayer.paused) {
+  if (audioPlayer.paused) {
     audioPlayer.play()
-    playBtn.textContent = 'll'
+    changeButtton(playBtn, false)
     return
   }
 
-  playBtn.textContent = '▶'
+  changeButtton(playBtn, true)
   audioPlayer.pause()
+}
+
+function changeButtton(container, isPlay) {
+  if(!isPlay) {
+    container.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16">
+    <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5m5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5"/>
+    </svg>
+    `
+    return 
+  }
+
+  container.innerHTML = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-play-fill"
+    viewBox="0 0 16 16">
+    <path
+      d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393" />
+  </svg>
+  `
 }
 
 function updateProgress() {
@@ -101,7 +120,7 @@ function updateProgress() {
 
   progressBar.max = duration;
 
-  if(!audioPlayer.paused) {
+  if (!audioPlayer.paused) {
     progressBar.value = currentTime
   } else {
     progressBar.value = currentTime
@@ -127,7 +146,7 @@ audioPlayer.addEventListener('timeupdate', updateProgress);
 audioPlayer.addEventListener('loadedmetadata', updateProgress);
 progressBar.addEventListener('input', setProgressBar)
 audioPlayer.addEventListener('ended', () => {
-  playBtn.textContent = '▶'
+  changeButtton(playBtn, true)
   progressBar.value = 0;
   currentTim.textContent = "0:00";
 })
