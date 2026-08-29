@@ -7,6 +7,8 @@ const durationSong = document.getElementById('duration');
 const portadaSong = document.getElementById('portada')
 
 const playBtn = document.getElementById('play');
+const nextBtn = document.getElementById('next')
+const prvBtn = document.getElementById('prev')
 
 let playlist = [
   {
@@ -141,7 +143,31 @@ function setProgressBar() {
   audioPlayer.currentTime = progressBar.value
 }
 
-playBtn.addEventListener('click', tooglePlay)
+function nextSong() {
+  if(playlist.length === 0) return
+
+  indexSong = (indexSong + 1) % playlist.length
+  loadSong(playlist[indexSong])
+
+  if(audioPlayer.paused) {
+    audioPlayer.play()
+  }
+}
+
+function prevSong() {
+  if(playlist.length === 0) return
+
+  indexSong = (indexSong - 1 + playlist.length) % playlist.length
+  loadSong(playlist[indexSong])
+
+  if(audioPlayer.paused) {
+    audioPlayer.play()
+  }
+}
+
+playBtn.addEventListener('click', tooglePlay);
+nextBtn.addEventListener('click', nextSong);
+prvBtn.addEventListener('click', prevSong);
 audioPlayer.addEventListener('timeupdate', updateProgress);
 audioPlayer.addEventListener('loadedmetadata', updateProgress);
 progressBar.addEventListener('input', setProgressBar)
