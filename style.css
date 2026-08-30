@@ -5,19 +5,14 @@
 }
 
 body {
-  
-  
-  /* EL DEGRADADO METAL/EMO */
   background: linear-gradient(
-  30deg,
-  #050505 0%,       /* Negro profundo (casi absoluto) */
-  #1a1a1a 30%,      /* Gris carbón oscuro */
-  #181818 50%,      /* Blanco hueso / Plata (Punto de luz moderno) */
-  #1a1a1a 70%,      /* Vuelta al gris carbón */
-  #050505 100%      /* Negro profundo */
-);
+    30deg,
+    #050505 0%,       
+    #1a1a1a 30%,
+    #1a1a1a 70%,
+    #050505 100%      
+  );
   
-  /* Asegura contexto de apilamiento */
   overflow: hidden;
 }
 
@@ -26,7 +21,6 @@ body {
   width: 90%;
   min-width: 350px;
   height: 100dvb;
-  /* background-color: brown;  */
 
   display: flex;
   justify-content: center;
@@ -37,10 +31,7 @@ body {
   position: relative;
   margin: auto;
   width: 250px;
-
-  /* border: 4px solid rgba(255, 255, 255, 0.3); */
   border-radius: 15px;
-  /* background-color: rgba(0, 0, 0, 0.5); */
   background: repeating-conic-gradient(from var(--efect), #ff003c 0%,
   #ff003c 5%, transparent 5%, transparent 40%, #ff003c 50%);
   animation: animate 4s linear infinite;
