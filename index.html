@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -139,6 +139,38 @@
       50% { opacity: 1; transform: scale(1.3); } 
     }
 
+    /* spinner */
+    .loader {
+      margin-top:-50px;
+      width: 50px;
+      aspect-ratio: 1;
+      display: grid;
+      border: 4px solid #0000;
+      border-radius: 50%;
+      border-color: #ccc #0000;
+      animation: l16 1s infinite linear;
+    }
+    .loader::before,
+    .loader::after {    
+      content: "";
+      grid-area: 1/1;
+      margin: 2px;
+      border: inherit;
+      border-radius: 50%;
+    }
+    .loader::before {
+      border-color: #f03355 #0000;
+      animation: inherit; 
+      animation-duration: .5s;
+      animation-direction: reverse;
+    }
+    .loader::after {
+      margin: 8px;
+    }
+    @keyframes l16 { 
+      100%{transform: rotate(1turn)}
+    }
+
     @media (hover: hover) {
       button:hover {
         color: #ff003c;
@@ -157,6 +189,7 @@
       <p>Estas son mis 10 Músicas favoritas</p>
       <button class="btn" id="btn"><span>ENTRAR</span></button>
       <!-- <button id="btn">Ingresar</button> -->
+      <div class="spinner"></div>
     </section>
   </main>
 
@@ -185,7 +218,21 @@
 
 
       createParticles(particleCount)
-      btn.addEventListener('click', () => alert("😊Ya casi terminamos 👀"))
+      btn.addEventListener('click', () => {
+
+        const spinner = document.querySelector('.spinner')
+        btn.style.opacity = 0
+        spinner.classList.add('loader')
+
+        setTimeout(() => {
+          location.pathname = './src/pages/music-player.html'
+          btn.style.opacity = 1
+          spinner.classList.remove('loader')
+        }, 3000)
+
+        
+        
+      })
 
       // Boton escurridizo 
   
