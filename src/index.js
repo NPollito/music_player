@@ -10,6 +10,45 @@ const playBtn = document.getElementById('play');
 const nextBtn = document.getElementById('next')
 const prvBtn = document.getElementById('prev')
 
+// background
+const symbolsContainer = document.getElementById('symbols')
+
+const symbols = ['♥', '𝅘𝅥𝅮', '✦', 'ఌ', '☽', '♫'];
+// 𝓷𝓲𝓵𝓽𝓸𝓷
+const initialSymbolCount = 10;
+const symbolsntervalMs = 650;
+
+const getRandomNumber = (min, max) => min + Math.random() * (max - min);
+const getRandomArrayItem = (array) => array[Math.floor(Math.random() * array.length)];
+
+function createSymbols() {
+  if(!symbolsContainer) return
+
+  const symbol = document.createElement('SPAN')
+  symbol.className = 'symbol'
+  symbol.textContent = getRandomArrayItem(symbols)
+
+  symbol.style.left = `${getRandomNumber(0, 100)}vw`
+  symbol.style.animationDuration = `${getRandomNumber(6, 11)}s`;
+  symbol.style.animationDelay = `${getRandomNumber(0, 2)}s`;
+
+  // Elimina el elemento automáticamente cuando termina su animación CSS
+  symbol.addEventListener('animationend', () => symbol.remove(), { once: true });
+  symbolsContainer.appendChild(symbol)
+}
+
+function initAnimation() {
+  // Ráfaga inicial escalonada de simbolos
+  for (let i = 0; i < initialSymbolCount; i++) {
+    setTimeout(createSymbols, i * 350);
+  }
+
+  // Generación continua
+  setInterval(createSymbols, symbolsntervalMs);
+}
+initAnimation()
+
+// reproductor
 let playlist = [
   {
     url: "../assets/music/Danny Ocean - Me Rehúso.mp3",
@@ -186,27 +225,6 @@ function activateAnimation(isPlay) {
   
   container.style.animation = "none"
   container.classList.remove('add-animation')
-
-  // if(isPlay) {
-  //   document.getElementById('animation').remove()
-  //   return
-  // }
-
-  // const style = document.createElement('style')
-  // style.id = 'animation'
-
-  // const keyFrame = `
-  //   @keyframes animate {
-  //     0% {
-  //       --efect: 0deg
-  //     }
-  //     100% {
-  //       --efect: 360deg
-  //     }
-  //   }
-  // `
-  // style.textContent = keyFrame
-  // document.head.appendChild(style)
 }
 
 playBtn.addEventListener('click', tooglePlay);

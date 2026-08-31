@@ -4,16 +4,51 @@
   margin: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: linear-gradient(
-    30deg,
-    #050505 0%,       
-    #1a1a1a 30%,
-    #1a1a1a 70%,
-    #050505 100%      
-  );
-  
+  background: linear-gradient(30deg,
+      #050505 0%,
+      #1a1a1a 30%,
+      #1a1a1a 70%,
+      #050505 100%);
+
   overflow: hidden;
+}
+
+#symbols {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.symbol {
+  position: absolute;
+  bottom: -50px;
+  color: #ff003c;
+  font-size: clamp(18px, 3vw, 34px);
+  animation: uploadSkull 8s linear forwards;
+  filter: drop-shadow(0 3px 5px rgba(180, 20, 80, .18));
+}
+
+@keyframes uploadSkull {
+  from {
+    transform: translateY(0) rotate(0deg) scale(.7);
+    opacity: 0;
+  }
+
+  12% {
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(-115vh) rotate(360deg) scale(1.2);
+    opacity: 0;
+  }
 }
 
 .container {
@@ -27,17 +62,18 @@ body {
   align-items: center;
 }
 
-.music-container{
+.music-container {
   position: relative;
   margin: auto;
   width: 250px;
   border-radius: 15px;
   background: repeating-conic-gradient(from var(--efect), #ff003c 0%,
-  #ff003c 5%, transparent 5%, transparent 40%, #ff003c 50%);
+      #ff003c 5%, transparent 5%, transparent 40%, #ff003c 50%);
   /* animation: animate 4s linear infinite; */
   z-index: 100;
 }
-.music-container::before, 
+
+.music-container::before,
 .music-container::after {
   content: '';
   position: absolute;
@@ -49,10 +85,11 @@ body {
   width: 100%;
   height: 100%;
   background: repeating-conic-gradient(from var(--efect), #00dbe9 0%,
-  #00dbe9 5%, transparent 5%, transparent 40%, #00dbe9 50%);
+      #00dbe9 5%, transparent 5%, transparent 40%, #00dbe9 50%);
   /* animation: animate 4s linear infinite; */
   /* animation-delay: -1s; */
 }
+
 .music-container::after {
   inset: 2.5px;
   background-color: #171717;
@@ -70,15 +107,18 @@ body {
   inherits: false;
   initial-value: 0deg;
 }
+
 @keyframes animate {
   0% {
     --efect: 0deg
   }
+
   100% {
     --efect: 360deg
   }
 }
-.music-container > div{
+
+.music-container>div {
   padding: 15px;
 }
 
@@ -116,6 +156,7 @@ body {
   border-radius: 4px;
   cursor: pointer;
 }
+
 .progress-container input::-webkit-slider-thumb {
   appearance: none;
   -webkit-appearance: none;
@@ -150,6 +191,7 @@ body {
   cursor: pointer;
   outline: none;
 }
+
 .container button:active {
   background: #444;
 }
