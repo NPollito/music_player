@@ -88,12 +88,14 @@ function tooglePlay() {
 
   if (audioPlayer.paused) {
     audioPlayer.play()
+    activateAnimation(false)
     changeButtton(playBtn, false)
     return
   }
 
-  changeButtton(playBtn, true)
   audioPlayer.pause()
+  changeButtton(playBtn, true)
+  activateAnimation(true)
 }
 
 function changeButtton(container, isPlay) {
@@ -153,6 +155,8 @@ function nextSong() {
 
   if(audioPlayer.paused) {
     audioPlayer.play()
+    changeButtton(playBtn, false)
+    activateAnimation(false)
   }
 }
 
@@ -164,7 +168,45 @@ function prevSong() {
 
   if(audioPlayer.paused) {
     audioPlayer.play()
+    changeButtton(playBtn, false)
+    activateAnimation(false)
   }
+}
+
+function activateAnimation(isPlay) {
+
+  const container = document.querySelector('.music-container')
+
+
+  if(!isPlay) {
+    container.style.animation = "animate 4s linear infinite"
+    container.classList.add('add-animation')
+    return
+  }
+  
+  container.style.animation = "none"
+  container.classList.remove('add-animation')
+
+  // if(isPlay) {
+  //   document.getElementById('animation').remove()
+  //   return
+  // }
+
+  // const style = document.createElement('style')
+  // style.id = 'animation'
+
+  // const keyFrame = `
+  //   @keyframes animate {
+  //     0% {
+  //       --efect: 0deg
+  //     }
+  //     100% {
+  //       --efect: 360deg
+  //     }
+  //   }
+  // `
+  // style.textContent = keyFrame
+  // document.head.appendChild(style)
 }
 
 playBtn.addEventListener('click', tooglePlay);
@@ -177,4 +219,5 @@ audioPlayer.addEventListener('ended', () => {
   changeButtton(playBtn, true)
   progressBar.value = 0;
   currentTim.textContent = "0:00";
+  activateAnimation(true)
 })

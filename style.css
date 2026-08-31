@@ -34,7 +34,7 @@ body {
   border-radius: 15px;
   background: repeating-conic-gradient(from var(--efect), #ff003c 0%,
   #ff003c 5%, transparent 5%, transparent 40%, #ff003c 50%);
-  animation: animate 4s linear infinite;
+  /* animation: animate 4s linear infinite; */
   z-index: 100;
 }
 .music-container::before, 
@@ -50,14 +50,20 @@ body {
   height: 100%;
   background: repeating-conic-gradient(from var(--efect), #00dbe9 0%,
   #00dbe9 5%, transparent 5%, transparent 40%, #00dbe9 50%);
-  animation: animate 4s linear infinite;
-  animation-delay: -1s;
+  /* animation: animate 4s linear infinite; */
+  /* animation-delay: -1s; */
 }
 .music-container::after {
   inset: 2.5px;
   background-color: #171717;
   border: 8px solid #191919;
 }
+
+.add-animation::before {
+  animation: animate 4s linear infinite;
+  animation-delay: -1s;
+}
+
 
 @property --efect {
   syntax: '<angle>';
